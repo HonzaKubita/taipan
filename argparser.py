@@ -6,7 +6,19 @@ class argParser:
 
   def parse(self):
     args = newObject() # Create a new oject
-    for i, item in enumerate(self.template):
-      args[item] = sys.argv[i + 1] # Put shell arguments into the object as their name and value
+    for i, templateItem in enumerate(self.template):
+
+      if '--options' in templateItem: # This item is a options section
+        args.options = newObject()
+        shellOptions = [s for s in sys.argv if "--" in s] # Extract options from shell arguments
+        for key, value in self.options.__dict__.items():
+          optionSpecified = f'--{key}' in shellOptions
+          if value == 'bool': # Option type is bool
+            args.options[key] = optionSpecified
+          elif value == 'str': # Option type is string
+            args.options[key] = sys.argv[sys.argv.index(f'--{key}') + 1] if optionSpecified else None # If specified put value else None
+
+      else: # Normal argument
+        args[templateItem] = sys.argv[i + 1] # Put shell arguments into the object as their name and value
     return args # Return the object
   
