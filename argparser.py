@@ -19,6 +19,10 @@ class argParser:
             args.options[key] = sys.argv[sys.argv.index(f'--{key}') + 1] if optionSpecified else None # If specified put value else None
 
       else: # Normal argument
-        args[templateItem] = sys.argv[i + 1] # Put shell arguments into the object as their name and value
+        try:
+          sys.argv[i + 1]
+          args[templateItem] = sys.argv[i + 1] # Put shell arguments into the object as their name and value
+        except:
+          pass
     return args # Return the object
   
