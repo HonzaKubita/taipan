@@ -23,6 +23,6 @@ class argParser:
           sys.argv[i + 1]
           args[templateItem] = sys.argv[i + 1] # Put shell arguments into the object as their name and value
         except:
-          pass
+          args[templateItem] = None
     return args # Return the object
   
