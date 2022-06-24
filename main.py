@@ -5,8 +5,10 @@ from argparser import argParser# Library for parsing shell parameters
 import compiler
 import builder
 import runner
+from help import printHelp
 
-parserTemplate = ['mode', 'fileName', '--options'] # Create template of shell arguments
+# Shell arguments processing
+parserTemplate = ['command', 'opt', '--options'] # Create template of shell arguments
 parserOptions = newObject(
   dev='bool',
   folder='str'
@@ -15,10 +17,17 @@ parserOptions = newObject(
 parser = argParser(parserTemplate)
 parser.options = parserOptions
 
-args = parser.parse()
+args = parser.parse() # parse the shell arguments to object
 
-# Put main args to their own variables
-mode = args.mode
-fileName = args.fileName
+mode = args.command
+filePath = args.opt
 
-print(f'Mode: {mode}, fileName: {fileName}, dev: {args.options.dev}, folder: {args.options.folder}')
+if mode == 'run':
+  runner.run(filePath, args)
+elif mode == 'build':
+  builder.build(filePath, args)
+elif mode == 'help' or mode == '-help' or mode == '--help':
+  printHelp(args.opt)
+else:
+  print(f'Unknown mode {mode}. Please choose from run | build')
+  print('Use taipan help for more information.')
