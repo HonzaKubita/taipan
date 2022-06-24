@@ -1,2 +1,2 @@
-# pythonBrackets
+# Taipan
 Python pre-compiler
