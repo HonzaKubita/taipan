@@ -21,9 +21,8 @@ def printHelp(command=None):
     print('Taipan help')
     print('Available commands:')
     print('-----------------------------------------')
-    print('help  - displays this message')
-    print('run   - executes taipan file')
-    print('build - builds taipan file into python')
+    for key, value in commands.items():
+      print(f'{key}: - {value["description"]}')
     print('-----------------------------------------')
     print('Use taipan help [command] for more information')
   elif command in commands:
