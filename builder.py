@@ -12,7 +12,7 @@ def build(fileName, args):
   else:
     outputFolderName = 'dist'
 
-  os.mkdir(outputFolderName)
+  # os.mkdir(outputFolderName)
 
   print('Building for production...')
 
