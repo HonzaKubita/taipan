@@ -1,21 +1,20 @@
 import os
 import compiler
 def build(fileName, args):
+  if not fileName.endswith('.tpan'): # Add extension if not specified
+    fileName = f'{fileName}.tpan'
   if not os.path.exists(fileName): # Check if file exists
-    fileName = f'{fileName}.tpan' # If not try to add taipan extension to it
-    if not os.path.exists(fileName): # Check if file with added extension exists  
-      print('Error: File not found') # Error and exit
-      exit()
+    print(f'Error: File {fileName} not found') # Error and exit
+    exit()
 
+  outputFolderName = 'dist'
   if args.folder:
     outputFolderName = args.folder
-  else:
-    outputFolderName = 'dist'
 
-  # os.mkdir(outputFolderName)
+  os.mkdir(outputFolderName)
 
   print('Building for production...')
 
-  compiler.compile(fileName, os.path.join(outputFolderName, f'{fileName.removesuffix(".tpan")}.py'))
+  compiler.compile(fileName, outputFolderName)
 
   print('Process finished')
