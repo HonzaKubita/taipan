@@ -5,7 +5,7 @@ def build(fileName, args):
   if not fileName.endswith('.tpan'): # Add extension if not specified
     fileName = f'{fileName}.tpan'
   if not os.path.exists(fileName): # Check if file exists
-    print(f'Error: File {fileName} not found') # Error and exit
+    print(f'Taipan Error: File {fileName} not found') # Error and exit
     exit()
 
   outputFolderName = 'dist'
