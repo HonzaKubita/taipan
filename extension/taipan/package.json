@@ -1,0 +1,25 @@
+{
+    "name": "taipan",
+    "displayName": "Taipan",
+    "description": "Taipan support for vs-code",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.68.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "taipan",
+            "aliases": ["Taipan", "taipan"],
+            "extensions": [".tpan"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "taipan",
+            "scopeName": "source.tpan",
+            "path": "./syntaxes/taipan.tmLanguage.json"
+        }]
+    }
+}
