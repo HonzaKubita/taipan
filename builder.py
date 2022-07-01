@@ -1,4 +1,5 @@
 import os
+import shutil
 import compiler
 def build(fileName, args):
   if not fileName.endswith('.tpan'): # Add extension if not specified
@@ -11,6 +12,9 @@ def build(fileName, args):
   if args.folder:
     outputFolderName = args.folder
 
+
+  if os.path.exists(outputFolderName):
+    shutil.rmtree(outputFolderName)
   os.mkdir(outputFolderName)
 
   print('Building for production...')
