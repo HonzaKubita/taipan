@@ -1,6 +1,7 @@
 import os
-import compiler
+import shutil
 import random
+import compiler
 def run(fileName, arguments=None):
   if not os.path.exists(fileName): # Check if file exists
     fileName = f'{fileName}.tpan' # If not try to add taipan extension to it
@@ -22,6 +23,6 @@ def run(fileName, arguments=None):
 
   exec(open(tempFileName).read())
   
-  os.remove(tempFolder) # Not working
+  shutil.rmtree(tempFolder)
 
   print('Process finished')
