@@ -39,8 +39,8 @@ def compile(inputFile, folder):
   loading = Loading(len(projectTree))
   loading.start()
   for i in projectTree: # Verify syntax of all project files
-    loading.add(1)
     verify(i)
+    loading.add(1)
 
   print("Done")
 
@@ -48,7 +48,7 @@ def compile(inputFile, folder):
   loading = Loading(len(projectTree))
   loading.start()
   for i in projectTree: # Build all project files
-    loading.add(1)
     _compileFile(i, os.path.join(folder, i))
+    loading.add(1)
   print("Done")
   
