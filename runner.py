@@ -3,25 +3,24 @@ import shutil
 import random
 import compiler
 def run(fileName, arguments=None):
+  if not fileName.endswith('.tpan'): # Add extension if not specified
+    fileName = f'{fileName}.tpan'
   if not os.path.exists(fileName): # Check if file exists
-    fileName = f'{fileName}.tpan' # If not try to add taipan extension to it
-    if not os.path.exists(fileName): # Check if file with added extension exists  
-      print('Error: File not found') # Error and exit
-      exit()
+    print(f'Error: File {fileName} not found') # Error and exit
+    exit()
   
   # File exists
   tempFolder = f'temp-{random.randrange(1000, 1000000000)}'
-  tempFileName = os.path.join(tempFolder, f'{fileName.removesuffix(".tpan")}.py.temp')
 
   os.mkdir(tempFolder)
 
   print('Compiling...')
 
-  compiler.compile(fileName, tempFileName)
+  compiler.compile(fileName, tempFolder)
 
   print('Running...')
 
-  exec(open(tempFileName).read())
+  exec(open(os.path.join(tempFolder, fileName)).read())
   
   shutil.rmtree(tempFolder)
 
