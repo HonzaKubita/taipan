@@ -2,7 +2,6 @@ import re
 
 
 class Bracket:
- 
 
     def __init__(self, index: int, type: str, inverted_bracket_index: int = 0):
         self.index = index
@@ -19,14 +18,14 @@ class Bracket:
             bool: True if the two brackets are inverses of each other
         """
         pairs = {
-        "}": "{",
-        "]": "[",
-        ")": "(",
-        "{": "}",
-        "[": "]",
-        "(": ")",
-        "'": "'",
-        '"': '"',
+            "}": "{",
+            "]": "[",
+            ")": "(",
+            "{": "}",
+            "[": "]",
+            "(": ")",
+            "'": "'",
+            '"': '"',
         }
 
         if str(self.type) in pairs.keys():
@@ -35,10 +34,10 @@ class Bracket:
         return False
 
     def is_parenthesis(self):
-      return self.type in ("'", '"')
-      
+        return self.type in ("'", '"')
 
-def find_occurrences(regex: str, s: str) -> list[int]:
+
+def find_occurrences(regex: str, s: str) -> list:
     """Find statements in a string that match regex pattern.
 
     Args:
@@ -61,7 +60,7 @@ def find_occurrences(regex: str, s: str) -> list[int]:
     return statements
 
 
-def find_brackets(s: str) -> list[Bracket]:
+def find_brackets(s: str) -> list:
     """Find brackets
 
     Args:
@@ -76,11 +75,11 @@ def find_brackets(s: str) -> list[Bracket]:
 
     stack = []  # Stack of brackets
     result = []  # Result of the search expression without parentheses
-    
+
     for bracket_index in brackets:
-      bracket = Bracket(bracket_index, s[bracket_index - 1])
-      if bracket.is_parenthesis() and bracket.type in map(lambda x: x.type, stack):
-    #     # if the current bracket is a parentheses and is in the stack
+        bracket = Bracket(bracket_index, s[bracket_index - 1])
+        if bracket.is_parenthesis() and bracket.type in map(lambda x: x.type, stack):
+            #     # if the current bracket is a parentheses and is in the stack
             i = list(map(lambda x: x.type, stack)).index(bracket.type)
             stack = stack[
                 : i
@@ -93,11 +92,11 @@ def find_brackets(s: str) -> list[Bracket]:
             #   result.pop()
             # while result[-1][1] != bracket:
             # This is why we need a do while loop in python
-      elif len(stack) > 0 and bracket.compare_to(stack[-1]):
-          stack.pop()  # If the last bracket in the stack mathes the current bracket then remove it from the stack
-          result.append(bracket)  # Add the current bracket to the result
-      else:
-          # Else append the the current bracket to the stack
-          stack.append(bracket)
-          result.append(bracket) # Add the current bracket to the result
+        elif len(stack) > 0 and bracket.compare_to(stack[-1]):
+            stack.pop()  # If the last bracket in the stack mathes the current bracket then remove it from the stack
+            result.append(bracket)  # Add the current bracket to the result
+        else:
+            # Else append the the current bracket to the stack
+            stack.append(bracket)
+            result.append(bracket)  # Add the current bracket to the result
     return result
