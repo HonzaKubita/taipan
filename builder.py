@@ -19,6 +19,6 @@ def build(fileName, args):
 
   print('Building for production...')
 
-  compiler.compile(fileName, outputFolderName)
+  compiler.compile(fileName, outputFolderName, args)
 
   print('Process finished')

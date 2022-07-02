@@ -9,6 +9,7 @@ from help import printHelp
 # Shell arguments processing
 parserTemplate = ['command', 'opt', '--options'] # Create template of shell arguments
 parserOptions = newObject(
+  noverify='bool',
   dev='bool',
   folder='str'
 )

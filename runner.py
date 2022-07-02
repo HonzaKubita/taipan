@@ -2,7 +2,7 @@ import os
 import shutil
 import random
 import compiler
-def run(fileName, arguments=None):
+def run(fileName, args):
   if not fileName.endswith('.tpan'): # Add extension if not specified
     fileName = f'{fileName}.tpan'
   if not os.path.exists(fileName): # Check if file exists
@@ -14,9 +14,7 @@ def run(fileName, arguments=None):
 
   os.mkdir(tempFolder)
 
-  print('Compiling...')
-
-  compiler.compile(fileName, tempFolder)
+  compiler.compile(fileName, tempFolder, args)
 
   print('Running...')
 

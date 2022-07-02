@@ -30,19 +30,22 @@ def _compileFile(inputFile, outputFile):
   f_outputFile.close()
 
 
-def compile(inputFile, folder):
+def compile(inputFile, folder, args):
 
   projectTree = _buildProjectTree(inputFile)
 
-  print("Verifying...")
+  if args.noverify:
+    pass
+  else:
+    print("Verifying...")
+    verify(projectTree)
+    loading = Loading(len(projectTree))
+    loading.start()
+    for i in projectTree: # Verify syntax of all project files
+      loading.add(1)
+      verify(i)
+    print("Done")
 
-  loading = Loading(len(projectTree))
-  loading.start()
-  for i in projectTree: # Verify syntax of all project files
-    loading.add(1)
-    verify(i)
-
-  print("Done")
 
   print("Compiling...")
   loading = Loading(len(projectTree))
