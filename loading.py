@@ -9,17 +9,15 @@ class Loading:
     self.fill = fill
     self.empty = empty
 
-  def _render(self, clear=True):
-    if clear:
-      print (f"\033[A    {'  ' * self.size}     \033[A") # Delete last line
+  def _render(self):
     # capacity 10
     # filled 5
     percentage = self.filled / self.capacity
     percentageFill = m.floor(percentage * self.size)
-    print(f'{ self.r_border }{ self.fill * percentageFill }{ self.empty * ( self.size - percentageFill ) }{ self.l_border }')
+    print(f'{ self.r_border }{ self.fill * percentageFill }{ self.empty * ( self.size - percentageFill ) }{ self.l_border } {m.floor(percentage * 100)}%', end = '\r' if self.filled < self.capacity else '\n')
 
   def start(self):
-    self._render(False)
+    self._render()
 
   def add(self, amount):
     self.filled += amount
