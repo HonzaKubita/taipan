@@ -55,8 +55,10 @@ def find_occurrences(regex: str, s: str) -> list:
         if ocurrence:
             ocurrence_index += ocurrence.span()[1]
             statements.append(ocurrence_index)
+
         else:
             break
+
     return statements
 
 
@@ -70,33 +72,33 @@ def find_brackets(s: str) -> list:
         list[tuple[int, str]]: list of indexes and of brackets found in the file
     """
     brackets = find_occurrences(
-        r"(?<!\\)[\{\[\(\"\'\]\}\)]", s
-    )  # find all brackets in string
+        r"(?<!\\)[\{\[\(\"\'\]\}\)]", s)  # find all brackets in string
 
     stack = []  # Stack of brackets
     result = []  # Result of the search expression without parentheses
 
     for bracket_index in brackets:
         bracket = Bracket(bracket_index, s[bracket_index - 1])
+
         if bracket.is_parenthesis() and bracket.type in map(lambda x: x.type, stack):
-            #     # if the current bracket is a parentheses and is in the stack
+            # if the current bracket is a parentheses and is in the stack
             i = list(map(lambda x: x.type, stack)).index(bracket.type)
-            stack = stack[
-                : i
-            ]  # remove everything from the stack from the index of the current bracket located in the stack
+            # remove everything from the stack from the index of the current bracket located in the stack
+            stack = stack[:i]
             while result[-1].type != bracket.type:
                 result.pop()  # Ignore all brackets found inside parentheses
             result.pop()
 
-            # do
-            #   result.pop()
-            # while result[-1][1] != bracket:
-            # This is why we need a do while loop in python
         elif len(stack) > 0 and bracket.compare_to(stack[-1]):
+            bracket.inverted_bracket_index = stack[-1].index
+            if stack[-1] in result:
+                stack[-1].inverted_bracket_index = bracket.index
             stack.pop()  # If the last bracket in the stack mathes the current bracket then remove it from the stack
             result.append(bracket)  # Add the current bracket to the result
+
         else:
             # Else append the the current bracket to the stack
             stack.append(bracket)
             result.append(bracket)  # Add the current bracket to the result
+
     return result
